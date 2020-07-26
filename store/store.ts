@@ -46,7 +46,7 @@ function initStore(preloadedState = initialState) {
     return createStore(reducer, preloadedState, composeWithDevTools(applyMiddleware()));
 }
 
-export const initializeStore = (preloadedState: ReduxState) => {
+export const initializeStore = (preloadedState) => {
     let _store = store ?? initStore(preloadedState);
 
     if (preloadedState && store) {

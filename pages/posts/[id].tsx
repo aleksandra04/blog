@@ -156,12 +156,7 @@ function Post(props: Props): JSX.Element {
 // type Context = NextPageContext<{ query: string }>
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-    const reduxStore = initializeStore({
-        posts: [],
-        post: null,
-        loading: false,
-        error: null,
-    });
+    const reduxStore = initializeStore({});
     const { dispatch } = reduxStore;
 
     const res = await axios.get(`https://simple-blog-api.crew.red/posts/${context.query.id}?_embed=comments`);

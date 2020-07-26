@@ -33,12 +33,7 @@ export default function Main(): JSX.Element {
 }
 
 export async function getServerSideProps() {
-    const reduxStore = initializeStore({
-        posts: [],
-        post: null,
-        loading: false,
-        error: null,
-    });
+    const reduxStore = initializeStore({});
     const { dispatch } = reduxStore;
 
     const posts = await axios.get('https://simple-blog-api.crew.red/posts');
