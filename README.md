@@ -24,4 +24,4 @@ npm install
 npm run dev
 ```
 
-### Check the deployed version of the application, please visit the [link](http://)
+### Check the deployed version of the application, please visit the [link](https://blog-seven-taupe.vercel.app/)
