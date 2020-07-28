@@ -13,7 +13,7 @@ import { Title } from '../../styles/styledMain';
 import { GlobalStyle } from '../../styles/styledLayout';
 import { Props } from '../../types/types';
 import axios from 'axios';
-import { GetServerSideProps, NextPageContext } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 
 function Post(props: Props): JSX.Element {
     const storePost = useSelector((state) => state.post);
@@ -150,16 +150,18 @@ function Post(props: Props): JSX.Element {
     );
 }
 
-// interface Context extends NextPageContext {
-//     query: string;
-//   }
-// type Context = NextPageContext<{ query: string }>
+export const getStaticPaths: GetStaticPaths = async () => {
+    const posts = await axios.get('https://simple-blog-api.crew.red/posts/');
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
+    const paths = posts.data.map((post) => `/posts/${post.id}`);
+    return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
     const reduxStore = initializeStore({});
     const { dispatch } = reduxStore;
 
-    const res = await axios.get(`https://simple-blog-api.crew.red/posts/${context.query.id}?_embed=comments`);
+    const res = await axios.get(`https://simple-blog-api.crew.red/posts/${params.id}?_embed=comments`);
 
     dispatch({
         type: types.GET_POST,
